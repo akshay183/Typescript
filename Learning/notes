@@ -1,0 +1,12 @@
+compiles - tsc main.ts
+compiles and watch - tsc main.ts -w 
+config ts - tsc --init
+terminal noemitonerror - tsc --noEmitOnError -w
+
+under config file:
+
+imp terms*
+1. noemitonerror : so no js file generation on error on ts file.
+2. rootdir : 
+3. outdir : 
+4. atlast add : , "indlude" : ["./src"]
