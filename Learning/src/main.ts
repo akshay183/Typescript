@@ -187,3 +187,115 @@ console.log(Grade.B);
 
 const emillaMathGrade: Grade = Grade.U
 // console.log(emillaMathGrade==Grade.U);
+
+
+// ------------------------------------------------------
+
+/* Literals */
+
+// now this name_1 literal is like const which can only be assigned to either 
+// 'dave' or 'John'
+let name_1: 'dave' | 'John'
+name_1 = 'John'
+name_1 = 'dave'
+console.log(name_1);
+
+
+/* Functions */
+
+
+const add = function(a: number, b: number): number {
+    return a + b;
+}
+
+type mathFunction = (a: number,b: number) => number;
+
+const addV2: mathFunction = function(a, b){
+    return a + b;
+}
+
+interface mathFunctionV2 {
+    (a: number,b: number) : number
+}
+
+const addV3: mathFunctionV2 = (a,b) => {
+    return a + b;
+}
+
+console.log(addV3(78, 79));
+
+// optional paramters => need to be present at last of paramter declaration.
+
+const optionalFunc = (a: number, b?: number, c?: number): number => {
+    let sum: number = a
+
+    if(typeof c !== 'undefined') {
+        sum = sum + c
+    }
+    if(typeof b !== 'undefined') {
+        sum = sum + b
+    }
+    console.log(a,b,c)
+    return sum
+}
+
+console.log(optionalFunc(1,undefined,2));
+
+// default paramters => 
+//  > can be at any position, to remove ambiguity use undefined at places.
+//  > type or interface wont work for function type declaration.
+
+const defaultFunction = (a: number, b: number = 10, c: number): number => {
+    return a + b + c
+}
+
+console.log(defaultFunction(1, undefined, -1))
+
+
+// Rest Parameter -> should be at the end of param declaration.
+
+const multiplyFunc = (a: number, ...b: (number)[]): number => {
+    return a*b.reduce((prev, curr) => prev*curr)
+}
+
+console.log(multiplyFunc(1,2,3))
+
+
+// 'never' type use - when function dont return anything, its different than void,
+//  as here function dont end, ex infinite loop, or it throws error.
+
+/* 
+const infiniteFucntion = (): never => {
+    let i: number = 1
+
+    while(true) {
+        i++
+    }
+} 
+*/
+
+const errorMessage = (message: string): never => {
+    throw Error(message)
+}
+
+/* 
+    *imp
+        > suppose below function , for ts we need to return never type.
+*/
+
+const stringOrNumber = (value: (string | number)): string => {
+
+    if (typeof value === 'number') {
+        return 'number'
+    }
+    if (typeof value === 'string') {
+        return 'string'
+    }
+
+    // throw errorMessage("fked up")
+    // or
+
+    return errorMessage("nothing to return")
+}
+
+console.log(stringOrNumber(1));
