@@ -207,3 +207,15 @@ const stringOrNumber = (value) => {
     return errorMessage("nothing to return");
 };
 console.log(stringOrNumber(1));
+let valueForCasting = 'john';
+let valueCastedA = valueForCasting;
+let valueCastedB = valueForCasting;
+/*
+    *imp => its just like we should be sure to what we are converting. As
+            TS will trust us on this, if thats incorrect conversion, ts might not raise
+            any exception.
+
+*/
+//  Conversion to type unkown first then convert to any other type
+let unkownVar = 10;
+console.log(typeof unkownVar);

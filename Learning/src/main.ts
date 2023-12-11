@@ -299,3 +299,27 @@ const stringOrNumber = (value: (string | number)): string => {
 }
 
 console.log(stringOrNumber(1));
+
+
+// Assertions -> its type casting
+
+
+type stringOrNumber_1 = string | number
+type one = string
+type two = 'john'
+
+let valueForCasting: one = 'john'
+let valueCastedA = valueForCasting as stringOrNumber_1
+let valueCastedB = valueForCasting as two
+
+/* 
+    *imp => its just like we should be sure to what we are converting. As
+            TS will trust us on this, if thats incorrect conversion, ts might not raise
+            any exception.
+
+*/
+
+//  Conversion to type unkown first then convert to any other type
+
+let unkownVar = (10 as unknown) as string
+console.log(typeof unkownVar)
