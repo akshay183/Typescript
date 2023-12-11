@@ -1,9 +1,9 @@
 console.log("hello")
 
-let a:number = 1
-let b:number = 2
+let a: number = 1
+let b: number = 2
 
-let c = a*b
+let c = a * b
 console.log('c :>> ', c);
 
 // ------------------------------------------------------
@@ -60,7 +60,7 @@ let ourReadonlyTuple: readonly [number, boolean, string] = [5, true, 'The Real C
 let ourTuple: [number, boolean, string] = [5, true, 'The Real Coding God'];
 
 // Arrays
-let arr = [1,true,'akshay']
+let arr = [1, true, 'akshay']
 
 /* 
     *imp points
@@ -71,7 +71,7 @@ let arr = [1,true,'akshay']
 /* Objects */
 // https://www.w3schools.com/typescript/typescript_object_types.php
 
-console.log('typeof(sumOfNum) :>> ', typeof(sumOfNum));
+console.log('typeof(sumOfNum) :>> ', typeof (sumOfNum));
 // remember tho a function is object, but type of return it as function only.
 
 const car: {
@@ -128,7 +128,7 @@ console.log('truck1 :>> ', truck_1);
 
 /* Optional parameter in Objects */
 interface Guitarist {
-    genre? : string
+    genre?: string
     songsCount: number
 }
 
@@ -160,12 +160,12 @@ console.log('arijitSingh :>> ', arijitSingh);
 */
 const greet = (guitarist: Guitarist) => {
 
-    if(guitarist.genre) {
+    if (guitarist.genre) {
         return `Genre is ${guitarist.genre}`;
     }
 
     return `genre data is absent`;
-} 
+}
 
 console.log('greet(arijitSingh) :>> ', greet(arijitSingh));
 
@@ -175,8 +175,8 @@ console.log('greet(arijitSingh) :>> ', greet(arijitSingh));
 */
 
 /* normally first elements starts from 0, but we can change ordering */
-enum Grade{
-    U=1,
+enum Grade {
+    U = 1,
     D,
     C,
     B,
@@ -204,21 +204,21 @@ console.log(name_1);
 /* Functions */
 
 
-const add = function(a: number, b: number): number {
+const add = function (a: number, b: number): number {
     return a + b;
 }
 
-type mathFunction = (a: number,b: number) => number;
+type mathFunction = (a: number, b: number) => number;
 
-const addV2: mathFunction = function(a, b){
+const addV2: mathFunction = function (a, b) {
     return a + b;
 }
 
 interface mathFunctionV2 {
-    (a: number,b: number) : number
+    (a: number, b: number): number
 }
 
-const addV3: mathFunctionV2 = (a,b) => {
+const addV3: mathFunctionV2 = (a, b) => {
     return a + b;
 }
 
@@ -229,17 +229,17 @@ console.log(addV3(78, 79));
 const optionalFunc = (a: number, b?: number, c?: number): number => {
     let sum: number = a
 
-    if(typeof c !== 'undefined') {
+    if (typeof c !== 'undefined') {
         sum = sum + c
     }
-    if(typeof b !== 'undefined') {
+    if (typeof b !== 'undefined') {
         sum = sum + b
     }
-    console.log(a,b,c)
+    console.log(a, b, c)
     return sum
 }
 
-console.log(optionalFunc(1,undefined,2));
+console.log(optionalFunc(1, undefined, 2));
 
 // default paramters => 
 //  > can be at any position, to remove ambiguity use undefined at places.
@@ -255,10 +255,10 @@ console.log(defaultFunction(1, undefined, -1))
 // Rest Parameter -> should be at the end of param declaration.
 
 const multiplyFunc = (a: number, ...b: (number)[]): number => {
-    return a*b.reduce((prev, curr) => prev*curr)
+    return a * b.reduce((prev, curr) => prev * curr)
 }
 
-console.log(multiplyFunc(1,2,3))
+console.log(multiplyFunc(1, 2, 3))
 
 
 // 'never' type use - when function dont return anything, its different than void,
@@ -301,6 +301,9 @@ const stringOrNumber = (value: (string | number)): string => {
 console.log(stringOrNumber(1));
 
 
+// ------------------------------------------------------
+
+
 // Assertions -> its type casting
 
 
@@ -323,3 +326,175 @@ let valueCastedB = valueForCasting as two
 
 let unkownVar = (10 as unknown) as string
 console.log(typeof unkownVar)
+
+
+// ------------------------------------------------------
+
+
+/* An example of using readonly.
+const days: readonly string[] as const = ["Monday", "Tuesday", "Wednesday"];
+
+console.log(days[1]); // This is allowed
+days.push("Thursday"); // This is not allowed 
+*/
+
+
+
+/* Classes */
+// we can do same stuff i.e method overloading, overirinding in same way.
+
+// simple way to declare a class
+class Animal {
+    constructor(
+        private readonly numLegs: number,
+        public name: string,
+        protected age: number) { }
+
+    public getnumLegs(): number {
+        return this.numLegs
+    }
+    
+}
+
+const animal = new Animal(2,'human', 20)
+// console.log(animal.getnumLegs())
+
+
+// here after declaration we also need to initialise in constructor
+class Vehicle{
+    public numTyres: number
+    public kmRan: number
+
+    constructor(numTyres: number, kmRan: number) {
+        this.kmRan = kmRan
+        this.numTyres = numTyres
+    }
+}
+
+// static keyword has same meaning as in c++, except no static class in TS
+// we can have static blocks as well
+
+
+/* Getters and Setter
+
+    TypeScript has some special inference rules for accessors:
+
+    > If get exists but no set, the property is automatically readonly
+    > If the type of the setter parameter is not specified, it is inferred from the return type of the getter
+    > Getters and setters must have the same Member Visibility
+
+*/
+
+class Devices {
+
+    private static cost: number
+
+    constructor(
+        // public static cost: number,// error dont do on paramter
+        cost: number,
+        private powerConsumedHr: number,
+        private companiesPublished?: string[]
+    ) {
+        
+        Devices.cost = cost
+    }
+
+    
+    public get getCost() : number {
+        return Devices.cost
+    }
+
+    
+    public set setCost(cost : number) {
+        Devices.cost = cost;
+    }
+
+    
+    public get getCompaniesPublished() : string[] {
+        if(this.companiesPublished) {
+            return this.companiesPublished
+        }
+
+        throw Error('Wrong data passed, not string array')
+    }
+
+    
+    public set setCompaniesPublished(companiesPublished : string[]) {
+        
+        if (
+            Array.isArray(companiesPublished) &&
+            companiesPublished.every((val) =>  typeof val === "string")
+        ) {
+            this.companiesPublished = companiesPublished
+            return
+        }
+        
+        throw Error(`data is not of string array type`)
+    }
+    
+    
+}
+
+const keyboard: Devices = new Devices(100, 200)
+
+// imp point, ts can be messed while checking array data type
+// so setCompaniesPublished is safe cheked for type
+keyboard.setCompaniesPublished = ["dell", "lg"]
+
+console.log(keyboard.getCompaniesPublished)
+
+// Inheritence + interface
+
+class Sports {
+    
+    public nameSports: string
+    protected numPlayers: number
+
+    constructor(
+        nameSports: string,
+        numPlayers: number
+    ) {
+        this.nameSports = nameSports 
+        this.numPlayers = numPlayers
+    }
+
+    private giveSecretValue(): string {
+        return "secret value"
+    }
+
+    public hashSecretValue(): string {
+        return this.giveSecretValue + " hashed"
+    }
+}
+
+class Cricket extends Sports{
+
+    constructor(
+        nameSports: string,
+        public numPlayers: number
+    ) {
+        super(nameSports, numPlayers)
+    }
+
+    override hashSecretValue(param?: number):string {
+        return 'overidden hashSecretValue method'
+    }
+}
+
+interface Instrument{
+    // public namee: string -> error, public by default no modifiers in interface
+
+    name: string
+}
+
+class Guitar implements Instrument {
+    
+    constructor(public name: string) {
+        this.name = name
+    }
+}
+
+
+// ------------------------------------------------------
+
+

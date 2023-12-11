@@ -219,3 +219,106 @@ let valueCastedB = valueForCasting;
 //  Conversion to type unkown first then convert to any other type
 let unkownVar = 10;
 console.log(typeof unkownVar);
+// ------------------------------------------------------
+/* An example of using readonly.
+const days: readonly string[] as const = ["Monday", "Tuesday", "Wednesday"];
+
+console.log(days[1]); // This is allowed
+days.push("Thursday"); // This is not allowed
+*/
+/* Classes */
+// we can do same stuff i.e method overloading, overirinding in same way.
+// simple way to declare a class
+class Animal {
+    constructor(numLegs, name, age) {
+        this.numLegs = numLegs;
+        this.name = name;
+        this.age = age;
+    }
+    getnumLegs() {
+        return this.numLegs;
+    }
+}
+const animal = new Animal(2, 'human', 20);
+// console.log(animal.getnumLegs())
+// here after declaration we also need to initialise in constructor
+class Vehicle {
+    constructor(numTyres, kmRan) {
+        this.kmRan = kmRan;
+        this.numTyres = numTyres;
+    }
+}
+// static keyword has same meaning as in c++, except no static class in TS
+// we can have static blocks as well
+/* Getters and Setter
+
+    TypeScript has some special inference rules for accessors:
+
+    > If get exists but no set, the property is automatically readonly
+    > If the type of the setter parameter is not specified, it is inferred from the return type of the getter
+    > Getters and setters must have the same Member Visibility
+
+*/
+class Devices {
+    constructor(
+    // public static cost: number,// error dont do on paramter
+    cost, powerConsumedHr, companiesPublished) {
+        this.powerConsumedHr = powerConsumedHr;
+        this.companiesPublished = companiesPublished;
+        Devices.cost = cost;
+    }
+    get getCost() {
+        return Devices.cost;
+    }
+    set setCost(cost) {
+        Devices.cost = cost;
+    }
+    get getCompaniesPublished() {
+        if (this.companiesPublished) {
+            return this.companiesPublished;
+        }
+        throw Error('Wrong data passed, not string array');
+    }
+    set setCompaniesPublished(companiesPublished) {
+        if (Array.isArray(companiesPublished) &&
+            companiesPublished.every((val) => typeof val === "string")) {
+            this.companiesPublished = companiesPublished;
+            return;
+        }
+        throw Error(`data is not of string array type`);
+    }
+}
+const keyboard = new Devices(100, 200);
+// imp point, ts can be messed while checking array data type
+// so setCompaniesPublished is safe cheked for type
+keyboard.setCompaniesPublished = ["dell", "lg"];
+console.log(keyboard.getCompaniesPublished);
+// Inheritence + interface
+class Sports {
+    constructor(nameSports, numPlayers) {
+        this.nameSports = nameSports;
+        this.numPlayers = numPlayers;
+    }
+    giveSecretValue() {
+        return "secret value";
+    }
+    hashSecretValue() {
+        return this.giveSecretValue + " hashed";
+    }
+}
+class Cricket extends Sports {
+    constructor(nameSports, numPlayers) {
+        super(nameSports, numPlayers);
+        this.numPlayers = numPlayers;
+    }
+    hashSecretValue(param) {
+        return 'overidden hashSecretValue method';
+    }
+}
+class Guitar {
+    constructor(name) {
+        this.name = name;
+        this.name = name;
+    }
+}
+// ------------------------------------------------------

@@ -1,3 +1,5 @@
+```https://www.typescriptlang.org/docs/handbook/2/classes.html```
+
 compiles - tsc main.ts
 compiles and watch - tsc main.ts -w 
 config ts - tsc --init
@@ -10,3 +12,169 @@ imp terms*
 2. rootdir : 
 3. outdir : 
 4. atlast add : , "indlude" : ["./src"]
+
+
+------------------------------------------------------------------------------
+
+> About readonly and const didfferences and usages.
+
+Both `readonly` and `const` keywords in TypeScript help with immutability, but they have subtle differences:
+
+**Scope:**
+
+* `const`: Used for standalone variables, primitive values, and arrays.
+* `readonly`: Used for properties of objects and interfaces.
+
+**Mutability:**
+
+* `const`: Makes the variable's value **immutable** throughout the entire program execution. It cannot be reassigned.
+* `readonly`: Makes the property's value **mutable at runtime** but prevents modification of the reference itself. You can still change the values inside a readonly object.
+
+**Compile-time vs. Runtime:**
+
+* `const`: The variable's value is determined at **compile-time** and cannot be changed.
+* `readonly`: The value is mutable at runtime, but the compiler enforces immutability checks.
+
+**Key Differences:**
+
+| Feature | `const` | `readonly` |
+|---|---|---|
+| Scope | Standalone variables and values | Object and interface properties |
+| Mutability at runtime | Immutable | Mutable (internals can be changed) |
+| Compile-time vs. Runtime | Constant at compile-time | Immutable at compile-time, enforced at runtime |
+
+**Additional Points:**
+
+* `readonly` can be used with `as const` to make a property's value immutable both at compile-time and runtime.
+* `const` can be used for static properties, while `readonly` cannot.
+* Both `const` and `readonly` improve code clarity and maintainability by enforcing immutability.
+
+**Here are some specific examples:**
+
+**const:**
+
+```typescript
+const PI = 3.14159; // Immutable value, cannot be reassigned
+
+const numbers: number[] = [1, 2, 3]; // Immutable reference, but elements can be changed
+
+numbers.push(4); // This is allowed
+numbers = [4, 5, 6]; // This is not allowed
+```
+
+**readonly:**
+
+```typescript
+interface User {
+  readonly name: string;
+  age: number;
+}
+
+const user: User = { name: "John", age: 30 };
+
+user.age = 31; // This is allowed
+user.name = "Jane"; // This is not allowed
+```
+
+**readonly as const:**
+
+```typescript
+const days: readonly string[] as const = ["Monday", "Tuesday", "Wednesday"];
+
+console.log(days[1]); // This is allowed
+days.push("Thursday"); // This is not allowed
+```
+
+Choosing between `const` and `readonly` depends on the specific context and desired level of immutability.
+
+
+
+
+
+
+You're right, the `count` variable in the example is declared as `readonly`, so it shouldn't be able to change directly. However, the code inside the `increment` method is modifying it:
+
+```typescript
+public increment(): void {
+  this.count++; // This is modifying the readonly variable
+}
+```
+
+While this might seem like a contradiction, it's important to understand the context:
+
+* The `increment` method is **inside the class**, which allows it to access and modify the `count` member variable. 
+* Even though the variable is declared as `readonly`, it only prevents modifications from outside the class. 
+* **Within the class itself, the variable can still be altered as needed.**
+
+Therefore, the `increment` method can increase the value of `count` because it is operating within the class's scope and has access to modify its internal members.
+
+However, it's crucial to remember that this modification doesn't violate the immutability principle. The original value of `count` is still preserved and not directly altered. Instead, the method creates a new state by updating the internal value.
+
+Here's a more accurate explanation of the process:
+
+1. The `increment` method creates a copy of the current `count` value.
+2. It increments the value of the copy.
+3. The updated value is then assigned back to the `count` member variable.
+
+This process essentially replaces the old state of `count` with a new one, effectively changing its value without directly modifying the original readonly variable.
+
+Therefore, while the `count` variable is technically modified inside the class method, it still adheres to the principle of immutability because the original value remains untouched and the update is encapsulated within the class itself.
+
+
+------------------------------------------------------------------------------
+> ! operator working
+
+The non-null assertion operator (`!`) can be used both for variables inside and outside of classes in TypeScript. Here's a breakdown:
+
+**Inside Classes:**
+
+* You can use it with properties directly within the class definition, like in your example:
+
+```typescript
+class Home {
+  name!: string; // non-null assertion for property
+}
+```
+
+* This tells the compiler that the `name` property will always be initialized with a string value and will never be null.
+
+**Outside Classes:**
+
+* You can use it with any variable declaration, regardless of its scope. Here are some examples:
+
+```typescript
+let username!: string; // global variable
+function greet(name!: string): void {
+  // ...
+}
+interface User {
+  email!: string; // interface property
+}
+```
+
+* In these cases, the `!` ensures that the variable is guaranteed to have a value and will never be null.
+
+**Things to Remember:**
+
+* Using `!` comes with a trade-off. While it can improve code clarity and potentially optimize performance, it also increases the risk of runtime errors if your assumption about the variable being non-null is wrong.
+* Use it carefully and only when you are confident that the variable will always be initialized with a value. Consider alternative approaches like null checks or optional chaining if unsure.
+* Remember, `!` doesn't change the actual type of the variable. It just changes the compiler's understanding of its potential null state.
+
+**Further Resources:**
+
+* TypeScript Documentation on Non-Null Assertion: [https://stackoverflow.com/questions/42273853/in-typescript-what-is-the-exclamation-mark-bang-operator-when-dereferenci](https://stackoverflow.com/questions/42273853/in-typescript-what-is-the-exclamation-mark-bang-operator-when-dereferenci)
+* Best Practices for Using Non-Null Assertion: [https://stackoverflow.com/questions/38874928/operator-in-typescript-after-object-method](https://stackoverflow.com/questions/38874928/operator-in-typescript-after-object-method)
+
+------------------------------------------------------------------------------
+
+// Inheritence + interface
+
+1. we dont have concept of method overloading, but optional paramters would make it possible.
+
+2. b: Base = new Derived() is same as other language.
+
+3. we have static blocks here as well.
+
+4. derived class memebers or method should not be more restrictive.
+
+5. same stuff about extend and implements, extend one and implement many.
