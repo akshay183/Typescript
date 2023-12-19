@@ -1,0 +1,41 @@
+1. **`baseurl` in tsconfig.json (TypeScript configuration):**
+   - `baseUrl` is an option in the `tsconfig.json` file for TypeScript projects.
+   - It is used to specify a base directory to resolve non-relative module names.
+   - When TypeScript encounters an import statement with a non-relative module name, it will start from the `baseUrl` and then look for the module relative to that base path.
+
+   Example `tsconfig.json`:
+
+   ```json
+   {
+     "compilerOptions": {
+       "baseUrl": "./src",
+       "paths": {
+         "*": ["app/*"]
+       }
+     }
+   }
+   ```
+
+   In this example, if you have an import statement like `import { someModule } from 'someModule';`, TypeScript will look for `someModule` starting from the `baseUrl`, which is the `./src` directory.
+
+2. **`include` in tsconfig.json:**
+   - The `include` option in `tsconfig.json` is used to specify an array of file or directory patterns that TypeScript should include in the compilation process.
+   - It allows you to define which files or directories TypeScript should consider when transpiling your code.
+
+   Example `tsconfig.json`:
+
+   ```json
+   {
+     "compilerOptions": {
+       // other options...
+     },
+     "include": ["src/**/*.ts", "test/**/*.ts"]
+   }
+   ```
+
+   In this example, TypeScript will only include files matching the patterns specified in the `include` array during the compilation process.
+
+In summary, `baseUrl` is related to module resolution in TypeScript, while `include` is about specifying which files and directories should be included in the TypeScript compilation process. They serve different purposes and are used in different parts of the `tsconfig.json` configuration. If you have a more specific use case or scenario in mind, feel free to provide additional details for a more tailored explanation.
+
+-------------------------------------------------------------
+
