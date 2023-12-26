@@ -178,3 +178,10 @@ interface User {
 4. derived class memebers or method should not be more restrictive.
 
 5. same stuff about extend and implements, extend one and implement many.
+
+------------------------------------------------------------------------------
+index signatures:
+
+1. https://www.w3schools.com/js/js_loop_forin.asp - for in loop
+2. we can use `keyof` to bypass use of index and utilise dynamic properties.
+3. 

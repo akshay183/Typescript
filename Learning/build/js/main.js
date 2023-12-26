@@ -321,4 +321,36 @@ class Guitar {
         this.name = name;
     }
 }
+const todaysTransaction = {
+    Pizza: 10,
+    Books: 20,
+    Job: 10,
+    name: "dave" // so basically we need to add above three properties in this case and also we can add more acc to index properties.
+};
+const prop = 'Pizza';
+console.log(todaysTransaction[prop]);
+const iterateProperties = (todaysTransaction) => {
+    for (const key in todaysTransaction) {
+        console.log(key, todaysTransaction[key]);
+    }
+};
+iterateProperties(todaysTransaction);
+const student = {
+    name: 'Virat',
+    GPA: 2,
+    class: [10, 12]
+};
+console.log('student name: ', student['dave']); // will give undefined
+function iteratePropertiesWithoutIndex(student, key) {
+    console.log(key, student[key]);
+}
+iteratePropertiesWithoutIndex(student, 'name');
+const income = {
+    salary: 100,
+    bonus: 20,
+    sideHustle: 150,
+};
+console.log(income[`dave`]);
+console.log(income[`bonus`]);
 // ------------------------------------------------------
+// Generics

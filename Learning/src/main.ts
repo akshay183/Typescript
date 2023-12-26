@@ -498,3 +498,77 @@ class Guitar implements Instrument {
 // ------------------------------------------------------
 
 
+// index Signatures
+
+// general type:
+/* 
+interface TransactionObj{
+    readonly [index: string]: number,
+}
+*/
+
+interface TransactionObj{
+    readonly [index: string]: string | number, // specifies that key for index is of type string and the
+    //values could be number, we can also use union here.
+    Pizza: number,
+    Books: number,
+    Job: number
+}
+
+const todaysTransaction: TransactionObj = {
+    Pizza: 10,
+    Books: 20,
+    Job: 10,
+    name: "dave" // so basically we need to add above three properties in this case and also we can add more acc to index properties.
+}
+
+const prop: string = 'Pizza'
+console.log(todaysTransaction[prop]);
+
+const iterateProperties = (todaysTransaction: TransactionObj) => {
+    for (const key in todaysTransaction) {
+        console.log(key, todaysTransaction[key])
+    }
+}
+
+iterateProperties(todaysTransaction);
+
+// without using index
+
+interface Student{
+    name: string,
+    GPA: number,
+    class: number[]
+}
+
+const student: Student = {
+    name: 'Virat',
+    GPA: 2,
+    class: [10,12]
+}
+console.log('student name: ',student['dave' as keyof Student]); // will give undefined
+
+function iteratePropertiesWithoutIndex(student: Student, key: keyof Student): void {
+    console.log(key, student[key]);
+}
+
+iteratePropertiesWithoutIndex(student, 'name')
+
+// another shitty way to use types as literals.
+
+type Streams = ('salary' | 'bonus' | `sideHustle`)
+type Income = Record<Streams, string | number>
+
+const income: Income = {
+    salary: 100,
+    bonus: 20,
+    sideHustle: 150,
+}
+
+console.log(income[`dave` as keyof typeof income]);
+console.log(income[`bonus`]);
+
+// ------------------------------------------------------
+
+// Generics
+
