@@ -497,6 +497,26 @@ class Guitar implements Instrument {
 
 // ------------------------------------------------------
 
+// abstract classes
+abstract class Department {
+
+    protected abstract reports: string[];
+    abstract describeDepartment(): void;
+}
+
+class ITDepartment extends Department{
+    
+    constructor(protected reports: string[]) {
+        super()
+    }
+
+    describeDepartment(): void {
+        console.log("IT department");
+    }
+}
+
+// ------------------------------------------------------
+
 
 // index Signatures
 

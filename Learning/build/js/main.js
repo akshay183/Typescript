@@ -321,6 +321,19 @@ class Guitar {
         this.name = name;
     }
 }
+// ------------------------------------------------------
+// abstract classes
+class Department {
+}
+class ITDepartment extends Department {
+    constructor(reports) {
+        super();
+        this.reports = reports;
+    }
+    describeDepartment() {
+        console.log("IT department");
+    }
+}
 const todaysTransaction = {
     Pizza: 10,
     Books: 20,

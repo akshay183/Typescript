@@ -179,9 +179,21 @@ interface User {
 
 5. same stuff about extend and implements, extend one and implement many.
 
+6. Abstract class -> same concept of abstract classes. we need to decalre abstract class in order to include abstract method.
+
+7. `Interface` in TS are basically used for static type checking of object.
+
+8. we can have optional methods and parameters in Interface.
+
 ------------------------------------------------------------------------------
 index signatures:
 
 1. https://www.w3schools.com/js/js_loop_forin.asp - for in loop
 2. we can use `keyof` to bypass use of index and utilise dynamic properties.
 3. 
+
+------------------------------------------------------------------------------
+Modules:
+
+1. export to each class or member or property, then `import {} from '../something.js'`. Important is something.js
+extension is `.js` as we need to add compiled module. 
